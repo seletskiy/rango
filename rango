@@ -21,7 +21,7 @@ from math import ceil, log
 if __name__ == '__main__':
     args = docopt(__doc__)
 
-header_size = 4
+header_size = 16
 
 if args['-r']:
     inp = open(args['<filename>'], 'rb')
