@@ -6,12 +6,13 @@ Read stdout and write in specified <filename> in circular manner, so result
 file size is not exceed specified size.
 
 Usage:
-    rango [-s <size>] <filename>
+    rango [-s <size>] [-b <block>] <filename>
     rango -r <filename>
 
 Options:
-    -s <size>  Max file size in bytes [default: 1024].
-    -r         Output contents of circular buffer.
+    -s <size>   Max file size in bytes [default: 1024].
+    -b <block>  Read max <block> bytes per time [default: 1024].
+    -r          Output contents of circular buffer.
 """
 
 from docopt import docopt
@@ -41,11 +42,12 @@ if args['-r']:
         else:
             stdout.write(data)
 else:
-    max_size = int(args['-s']) + header_size
     out = open(args['<filename>'], 'w+b')
     offset = header_size
+    max_size = int(args['-s']) + header_size
+    block_size = int(args['-b'])
     while True:
-        data = stdin.read(max_size)
+        data = stdin.read(min(max_size, block_size))
         out.seek(offset)
         written = max_size - offset
         out.write(data[0:written])
