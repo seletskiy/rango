@@ -22,8 +22,8 @@ Example usage
 `%` marks no new line at eof.
 
 ```
-$ echo -n ''       | ./rango -s8 buffer && ./rango -r buffer 
-$ echo -n '1'      | ./rango -s8 buffer && ./rango -r buffer
+$ echo -n ''       | ./rango -s4 buffer && ./rango -r buffer 
+$ echo -n '1'      | ./rango -s4 buffer && ./rango -r buffer
 1%
 $ echo -n '1'      | ./rango -s4 buffer && ./rango -r buffer 
 1%
