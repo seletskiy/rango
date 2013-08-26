@@ -39,4 +39,5 @@ $ echo -n '123456' | ./rango -s4 buffer && ./rango -r buffer
 3456%
 
 $ wc -c buffer
+8 buffer
 ```
