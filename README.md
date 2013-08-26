@@ -22,19 +22,21 @@ Example usage
 `%` marks no new line at eof.
 
 ```
-$ echo -n '' | ./rango -s8 asd && ./rango -r asd 
-$ echo -n '1' | ./rango -s8 asd && ./rango -r asd
+$ echo -n ''       | ./rango -s8 buffer && ./rango -r buffer 
+$ echo -n '1'      | ./rango -s8 buffer && ./rango -r buffer
 1%
-$ echo -n '1' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '1'      | ./rango -s4 buffer && ./rango -r buffer 
 1%
-$ echo -n '12' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '12'     | ./rango -s4 buffer && ./rango -r buffer 
 12%
-$ echo -n '123' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '123'    | ./rango -s4 buffer && ./rango -r buffer 
 123%
-$ echo -n '1234' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '1234'   | ./rango -s4 buffer && ./rango -r buffer 
 1234%
-$ echo -n '12345' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '12345'  | ./rango -s4 buffer && ./rango -r buffer 
 2345%
-$ echo -n '123456' | ./rango -s4 asd && ./rango -r asd 
+$ echo -n '123456' | ./rango -s4 buffer && ./rango -r buffer 
 3456%
+
+$ wc -c buffer
 ```
