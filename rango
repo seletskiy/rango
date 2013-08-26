@@ -1,0 +1,60 @@
+#!/bin/python2
+
+"""Ring buffer tool.
+
+Read stdout and write in specified <filename> in circular manner, so result
+file size is not exceed specified size.
+
+Usage:
+    rango [-s <size>] <filename>
+    rango -r <filename>
+
+Options:
+    -s <size>  Max file size in bytes [default: 1024].
+    -r         Output contents of circular buffer.
+"""
+
+from docopt import docopt
+from sys import stdin, stdout
+from math import ceil, log
+
+if __name__ == '__main__':
+    args = docopt(__doc__)
+
+header_size = 4
+
+if args['-r']:
+    inp = open(args['<filename>'], 'rb')
+    offset = int(inp.read(header_size).strip(' '))
+    inp.seek(offset)
+    while True:
+        data = inp.read()
+        if not data:
+            break
+        stdout.write(data)
+    inp.seek(header_size)
+    while True:
+        data = inp.read()
+        if inp.tell() >= offset:
+            stdout.write(data[0:len(data) - (inp.tell() - offset)])
+            break
+        else:
+            stdout.write(data)
+else:
+    max_size = int(args['-s'])
+    out = open(args['<filename>'], 'w+b')
+    offset = header_size
+    while True:
+        data = stdin.read(max_size)
+        out.seek(offset)
+        written = max_size - offset
+        out.write(data[0:written])
+        offset += len(data)
+        if offset > max_size:
+            out.seek(header_size)
+            out.write(data[written:])
+            offset = header_size + offset % max_size
+        out.seek(0)
+        out.write(str(offset).ljust(header_size, ' '))
+        if not data:
+            break
