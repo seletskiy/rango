@@ -41,7 +41,7 @@ if args['-r']:
         else:
             stdout.write(data)
 else:
-    max_size = int(args['-s'])
+    max_size = int(args['-s']) + header_size
     out = open(args['<filename>'], 'w+b')
     offset = header_size
     while True:
