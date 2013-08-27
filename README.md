@@ -8,12 +8,14 @@ Read stdout and write in specified <filename> in circular manner, so result
 file size is not exceed specified size.
 
 Usage:
-    rango [-s <size>] <filename>
+    rango [-s <size>] [-b <block>] [--no-eof] <filename>
     rango -r <filename>
 
 Options:
-    -s <size>  Max file size in bytes [default: 1024].
-    -r         Output contents of circular buffer.
+    -s <size>   Max file size in bytes [default: 1024].
+    -b <block>  Read max <block> bytes per time [default: 1024].
+    -r          Output contents of circular buffer.
+    --no-eof
 ```
 
 Example usage
@@ -23,8 +25,6 @@ Example usage
 
 ```
 $ echo -n ''       | ./rango -s4 buffer && ./rango -r buffer
-$ echo -n '1'      | ./rango -s4 buffer && ./rango -r buffer
-1%
 $ echo -n '1'      | ./rango -s4 buffer && ./rango -r buffer
 1%
 $ echo -n '12'     | ./rango -s4 buffer && ./rango -r buffer
